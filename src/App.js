@@ -6,7 +6,15 @@ import Navbar from './Navbar/Navbar';
 function App() {
 
   const [guns, setGuns] = useState([]);
-  console.log(guns);
+  // console.log(guns);
+  const [cart, setCart] = useState([]);
+  console.log(cart);
+
+
+  const handleAddToCart = (gun) => {
+    const newCart = [...cart, gun];
+    setCart(newCart);
+  }
 
   useEffect(() => {
     fetch('data.json')
@@ -17,9 +25,14 @@ function App() {
   return (
     <div>
       <Navbar></Navbar>
+      <div>
+        {
+          cart.map(item => <h1 key={item.id}>{item.name}</h1>)
+        }
+      </div>
       <div className="card-container">
         {
-          guns.map(gun => <Card key={gun.id} gunData={gun}></Card>)
+          guns.map(gun => <Card key={gun.id} gunData={gun} handleAddToCart={handleAddToCart}></Card>)
         }
       </div>
     </div>
